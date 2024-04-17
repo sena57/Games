@@ -12,8 +12,6 @@ public class Main {
         controller.addPlanes(plane1);
         controller.printAllPlanes();
         plane1.addPassenger(p1);
-        p2.inform();
-        plane1.informPassengers();
-        controller.informPeopleOnAllPlanes();
+        controller.informPeopleOnAllPlanes("Hello");
     }
 }

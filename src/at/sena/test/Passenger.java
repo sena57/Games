@@ -25,7 +25,7 @@ public class Passenger {
         this.lastName = lastName;
     }
 
-    public void inform(){
-        System.out.println("I " + firstName + " " + lastName + " am informed");
+    public void inform(String message){
+        System.out.println("I " + firstName + " " + lastName + " am informed, the message is " + message);
     }
 }

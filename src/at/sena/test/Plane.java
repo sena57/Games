@@ -18,9 +18,9 @@ public class Plane {
     public List<Passenger> getPassengers() { return passengers; }
 
 
-    public void informPassengers(){
+    public void informPassengers(String message){
         for (Passenger passengers: this.passengers) {
-            passengers.inform(); }
+            passengers.inform(message); }
     }
 
     public String getName() {

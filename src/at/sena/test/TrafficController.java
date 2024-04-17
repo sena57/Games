@@ -25,8 +25,8 @@ public class TrafficController {
             System.out.println("Plane: " + planes.getName() + " " + planes.getPosition().getLatitude()); }
     }
 
-    public void informPeopleOnAllPlanes(){
+    public void informPeopleOnAllPlanes(String message){
         for (Plane planes: this.planes) {
-            planes.informPassengers(); }
+            planes.informPassengers(message); }
     }
 }
