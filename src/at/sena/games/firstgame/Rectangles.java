@@ -7,6 +7,13 @@ public class Rectangles extends BasicGame {
     private float x;
     private float y;
     private float speed;
+    private float circleY;
+    // Richtung, in die sich der Kreis bewegt (-1 für nach oben, 1 für nach unten)
+    private int circleDirection;
+
+    private float ovalX;
+    // Richtung, in die sich das Oval bewegt (-1 für nach links, 1 für nach rechts)
+    private int ovalDirection;
 
     public Rectangles(String title) {
         super(title);
@@ -15,17 +22,38 @@ public class Rectangles extends BasicGame {
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
         this.x = 100;
-        this.speed = 50.0f;
+        this.speed = 10.0f;
+        this.circleY = 100;
+        this.circleDirection = 1;
+        this.ovalX = 0;
+        this.ovalDirection = 1;
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
         this.x += (float) (delta/this.speed);
+
+        // Update für den Kreis (vertikal)
+        this.circleY += this.circleDirection * (delta / this.speed);
+
+        // Ändern der Richtung, wenn der Kreis den oberen oder unteren Rand erreicht
+        if (this.circleY <= 0 || this.circleY >= gameContainer.getHeight() - 100) {
+            this.circleDirection *= -1;
+        }
+
+        // Update für das Oval (horizontal)
+        this.ovalX += this.ovalDirection * (delta / this.speed);
+
+        // Ändern der Richtung, wenn das Oval den linken oder rechten Rand erreicht
+        if (this.ovalX <= 0 || this.ovalX >= gameContainer.getWidth() - 100) {
+            this.ovalDirection *= -1; }
     }
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         graphics.drawRect(this.x,this.y,100,100);
+        graphics.drawOval(50, this.circleY, 100, 100);
+        graphics.drawOval(this.ovalX, 50, 50, 25);
         graphics.drawString("Hellooo",50,50);
     }
 
