@@ -6,6 +6,8 @@ import org.newdawn.slick.tests.AnimationTest;
 public class Rectangles extends BasicGame {
     private float x;
     private float y;
+    private int directionX;
+    private int directionY;
     private float speed;
     private float circleY;
     // Richtung, in die sich der Kreis bewegt (-1 für nach oben, 1 für nach unten)
@@ -21,8 +23,11 @@ public class Rectangles extends BasicGame {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        this.x = 100;
-        this.speed = 10.0f;
+        this.x = 200;
+        this.y = 200;
+        this.directionX = 1;
+        this.directionY = 1;
+        this.speed = 5.0f;
         this.circleY = 100;
         this.circleDirection = 1;
         this.ovalX = 0;
@@ -31,7 +36,10 @@ public class Rectangles extends BasicGame {
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
-        this.x += (float) (delta/this.speed);
+        this.x += this.directionX * (delta/this.speed);
+        if (this.x <= 400 || this.x >= gameContainer.getHeight() - 100){
+            this.directionX *= -1;
+        }
 
         // Update für den Kreis (vertikal)
         this.circleY += this.circleDirection * (delta / this.speed);
@@ -52,7 +60,7 @@ public class Rectangles extends BasicGame {
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
         graphics.drawRect(this.x,this.y,100,100);
-        graphics.drawOval(50, this.circleY, 100, 100);
+        graphics.drawOval(50, this.circleY, 50, 50);
         graphics.drawOval(this.ovalX, 50, 50, 25);
         graphics.drawString("Hellooo",50,50);
     }
