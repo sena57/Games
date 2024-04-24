@@ -26,7 +26,7 @@ public class Rectangles extends BasicGame {
         this.x = 200;
         this.y = 200;
         this.directionX = 1;
-        this.directionY = 1;
+        this.directionY = 0;
         this.speed = 5.0f;
         this.circleY = 100;
         this.circleDirection = 1;
@@ -36,10 +36,40 @@ public class Rectangles extends BasicGame {
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
-        this.x += this.directionX * (delta/this.speed);
-        if (this.x <= 400 || this.x >= gameContainer.getHeight() - 100){
-            this.directionX *= -1;
+
+        // Bewegung von links nach rechts
+        if (this.directionX == 1) {
+            this.x += delta / this.speed;
+            if (this.x >= 500) {
+                this.directionX = 0;
+                this.directionY = 1; // Ändern der Richtung zu unten
+            }
         }
+        // Bewegung von oben nach unten
+        else if (this.directionY == 1) {
+            this.y -= delta / this.speed;
+            if (this.y <= 200) {
+                this.directionX = -1; // Ändern der Richtung zu links
+                this.directionY = 0;
+            }
+        }
+        // Bewegung von rechts nach links
+        else if (this.directionX == -1) {
+            this.x -= delta / this.speed;
+            if (this.x <= 200) {
+                this.directionX = 0;
+                this.directionY = -1; // Ändern der Richtung nach oben
+            }
+        }
+        // Bewegung von unten nach oben
+        else if (this.directionY == -1) {
+            this.y += delta / this.speed;
+            if (this.y >= 400) {
+                this.directionX = 1; // Ändern der Richtung zu rechts
+                this.directionY = 0;
+            }
+        }
+
 
         // Update für den Kreis (vertikal)
         this.circleY += this.circleDirection * (delta / this.speed);
