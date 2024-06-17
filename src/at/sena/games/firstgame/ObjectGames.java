@@ -10,7 +10,7 @@ import java.util.Random;
 public class ObjectGames extends BasicGame {
     private List<Rectangle> rectangles;
     private List<Oval> ovals;
-    private Circle circle;
+    private List<Circle> circles;
 
     public ObjectGames(String title) {
         super(title);
@@ -20,8 +20,7 @@ public class ObjectGames extends BasicGame {
     public void init(GameContainer gameContainer) throws SlickException {
         this.rectangles = new ArrayList<>();
         this.ovals = new ArrayList<>();
-
-        this.circle = new Circle(50,50,20);
+        this.circles = new ArrayList<>();
 
         Random random = new Random();
         for (int i = 0; i < 10; i++) {
@@ -30,8 +29,13 @@ public class ObjectGames extends BasicGame {
         }
 
         for (int i = 0; i < 10; i++) {
-            Oval oval = new Oval(random.nextInt(), random.nextInt(), random.nextInt());
+            Oval oval = new Oval(random.nextInt(600), random.nextInt(600), random.nextInt(50));
             ovals.add(oval);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            Circle circle = new Circle(random.nextInt(600), random.nextInt(600), random.nextInt(50));
+            circles.add(circle);
         }
     }
 
@@ -45,7 +49,9 @@ public class ObjectGames extends BasicGame {
             oval.update((delta));
         }
 
-        this.circle.update(delta);
+        for (Circle circle :this.circles) {
+            circle.update(delta);
+        }
     }
 
     @Override
@@ -58,7 +64,9 @@ public class ObjectGames extends BasicGame {
             oval.render(graphics);
         }
 
-        this.circle.render(graphics);
+        for (Circle circle:this.circles) {
+            circle.render(graphics);
+        }
     }
 
     public static void main(String[] argv) {
