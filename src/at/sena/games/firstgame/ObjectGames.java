@@ -3,9 +3,13 @@ package at.sena.games.firstgame;
 import org.newdawn.slick.*;
 import org.newdawn.slick.tests.AnimationTest;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Random;
+
 public class ObjectGames extends BasicGame {
-    private Rectangle rectangle;
-    private Oval oval;
+    private List<Rectangle> rectangles;
+    private List<Oval> ovals;
     private Circle circle;
 
     public ObjectGames(String title) {
@@ -14,22 +18,46 @@ public class ObjectGames extends BasicGame {
 
     @Override
     public void init(GameContainer gameContainer) throws SlickException {
-        this.rectangle = new Rectangle(100,100,5);
-        this.oval = new Oval(200,300,10);
+        this.rectangles = new ArrayList<>();
+        this.ovals = new ArrayList<>();
+
         this.circle = new Circle(50,50,20);
+
+        Random random = new Random();
+        for (int i = 0; i < 10; i++) {
+            Rectangle rectangle = new Rectangle(random.nextInt(600), random.nextInt(600), 50);
+            rectangles.add(rectangle);
+        }
+
+        for (int i = 0; i < 10; i++) {
+            Oval oval = new Oval(random.nextInt(), random.nextInt(), random.nextInt());
+            ovals.add(oval);
+        }
     }
 
     @Override
     public void update(GameContainer gameContainer, int delta) throws SlickException {
-        this.rectangle.update(delta);
-        this.oval.update(delta);
+        for (Rectangle rectangle:this.rectangles) {
+            rectangle.update(delta);
+        }
+
+        for (Oval oval:this.ovals) {
+            oval.update((delta));
+        }
+
         this.circle.update(delta);
     }
 
     @Override
     public void render(GameContainer gameContainer, Graphics graphics) throws SlickException {
-        this.rectangle.render(graphics);
-        this.oval.render(graphics);
+        for (Rectangle rectangle:this.rectangles) {
+            rectangle.render(graphics);
+        }
+
+        for (Oval oval:this.ovals) {
+            oval.render(graphics);
+        }
+
         this.circle.render(graphics);
     }
 
