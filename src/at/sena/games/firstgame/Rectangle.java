@@ -10,7 +10,7 @@ public class Rectangle {
     private float speed;
 
     public Rectangle(int x, int y, float speed) {
-        this.x = x;
+        this.x = 0;
         this.y = y;
         this.speed = speed;
     }
@@ -20,9 +20,15 @@ public class Rectangle {
     }
 
     public void update(int delta){
-        this.x += (float)delta/this.speed;
+
+
         if (this.x>800){
-            this.x = 0;
+            this.x += (float)delta/this.speed;
+        } else {
+            this.x -= (float) delta/this.speed;
+            if (this.x < 0){
+                this.x = 800;
+            }
         }
     }
 }
